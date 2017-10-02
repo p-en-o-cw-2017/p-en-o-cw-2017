@@ -14,6 +14,8 @@ horizontal and vertical stabilizers). In the drone coordinate system,
   by the fact that the center of gravity is at (0, 0, 0).) Its mass, too, is
   modeled as a point mass and its thrust force as a point force at the same
   location.
+The drone coordinate system is right-handed; (0, 1, 0) points towards the top
+of the drone.
 
 The drone's geometry is not completely fixed: each airfoil can be rotated
 around an axis. We define each airfoil's axis vector as follows:
@@ -44,6 +46,9 @@ The forces operating on the drone, in drone coordinates, are the following:
 
 The drone has a camera located at (0, 0, 0) and looking towards (0, 0, -1).
 (The drone (including the engine) is transparent to this camera; it does not block any part of its view.)
+
+The direction of gravity is (0, -1, 0) in world coordinates. The world coordinate
+system is right-handed.
 
 All physical quantities are expressed in SI units; all angles are expressed in
 radians.
