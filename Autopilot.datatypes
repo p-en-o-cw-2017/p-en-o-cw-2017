@@ -43,7 +43,7 @@ The forces operating on the drone, in drone coordinates, are the following:
   other forces operate on the drone; in particular, there is no drag.
 
 The drone has a camera located at (0, 0, 0) and looking towards (0, 0, -1).
-(The engine is transparent.)
+(The drone (including the engine) is transparent to this camera; it does not block any part of its view.)
 
 All physical quantities are expressed in SI units; all angles are expressed in
 radians.
