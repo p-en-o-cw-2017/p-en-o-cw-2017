@@ -51,7 +51,7 @@ radians.
 */
 
 public datatype AutopilotConfig {
-    /** Gravity */
+    /** The world's gravitational constant (in N/kg). */
     float gravity;
     /** Distance between the drone's center of gravity and the point where the wings' mass and lift are located. */
     float wingX;
