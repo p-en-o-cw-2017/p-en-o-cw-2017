@@ -26,5 +26,5 @@ public class AutopilotInputsReader {
             public float getRoll() { return roll; }
             public float getElapsedTime() { return elapsedTime; }
         };
-);    }
+    }
 }

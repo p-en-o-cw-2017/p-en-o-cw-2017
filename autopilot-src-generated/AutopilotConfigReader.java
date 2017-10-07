@@ -40,5 +40,5 @@ public class AutopilotConfigReader {
             public int getNbColumns() { return nbColumns; }
             public int getNbRows() { return nbRows; }
         };
-);    }
+    }
 }

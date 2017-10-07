@@ -20,5 +20,5 @@ public class AutopilotOutputsReader {
             public float getHorStabInclination() { return horStabInclination; }
             public float getVerStabInclination() { return verStabInclination; }
         };
-);    }
+    }
 }

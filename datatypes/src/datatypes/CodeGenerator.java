@@ -247,7 +247,7 @@ public class CodeGenerator {
 				writer.format("            public %s %s() { return %s; }%n", field.type.name, field.getGetterName(), field.name);
 			}
 			writer.format(
-					"        };%n);"+
+					"        };%n"+
 					"    }%n"+
 					"}%n");
 		}
