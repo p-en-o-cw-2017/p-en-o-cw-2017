@@ -8,14 +8,14 @@ public class AutopilotInputsReader {
         return array;
     }
     public static AutopilotInputs read(java.io.DataInputStream stream) throws java.io.IOException {
-        byte[] image = readByteArray(stream);
-        float x = stream.readFloat();
-        float y = stream.readFloat();
-        float z = stream.readFloat();
-        float heading = stream.readFloat();
-        float pitch = stream.readFloat();
-        float roll = stream.readFloat();
-        float elapsedTime = stream.readFloat();
+        final byte[] image = readByteArray(stream);
+        final float x = stream.readFloat();
+        final float y = stream.readFloat();
+        final float z = stream.readFloat();
+        final float heading = stream.readFloat();
+        final float pitch = stream.readFloat();
+        final float roll = stream.readFloat();
+        final float elapsedTime = stream.readFloat();
         return new AutopilotInputs() {
             public byte[] getImage() { return image; }
             public float getX() { return x; }

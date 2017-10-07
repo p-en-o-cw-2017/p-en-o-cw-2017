@@ -8,11 +8,11 @@ public class AutopilotOutputsReader {
         return array;
     }
     public static AutopilotOutputs read(java.io.DataInputStream stream) throws java.io.IOException {
-        float thrust = stream.readFloat();
-        float leftWingInclination = stream.readFloat();
-        float rightWingInclination = stream.readFloat();
-        float horStabInclination = stream.readFloat();
-        float verStabInclination = stream.readFloat();
+        final float thrust = stream.readFloat();
+        final float leftWingInclination = stream.readFloat();
+        final float rightWingInclination = stream.readFloat();
+        final float horStabInclination = stream.readFloat();
+        final float verStabInclination = stream.readFloat();
         return new AutopilotOutputs() {
             public float getThrust() { return thrust; }
             public float getLeftWingInclination() { return leftWingInclination; }
