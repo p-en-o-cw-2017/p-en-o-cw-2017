@@ -240,14 +240,14 @@ public class CodeGenerator {
 					"    }%n");
 			writer.format("    public static %s read(java.io.DataInputStream stream) throws java.io.IOException {%n", datatype.name);
 			for (Field field : datatype.fields) {
-				writer.format("        %s %s = %s;%n", field.type.name, field.name, field.type.getReaderCall());
+				writer.format("        final %s %s = %s;%n", field.type.name, field.name, field.type.getReaderCall());
 			}
 			writer.format("        return new %s() {%n", datatype.name);
 			for (Field field : datatype.fields) {
 				writer.format("            public %s %s() { return %s; }%n", field.type.name, field.getGetterName(), field.name);
 			}
 			writer.format(
-					"        };%n);"+
+					"        };%n"+
 					"    }%n"+
 					"}%n");
 		}
