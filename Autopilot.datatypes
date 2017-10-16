@@ -90,7 +90,18 @@ public datatype AutopilotConfig {
 
 public datatype AutopilotInputs {
     /** The camera image, top row first. Within a row, leftmost pixel first.
-    Three bytes (R, G, B) per pixel. */
+    Three bytes (R, G, B) per pixel.
+    Note: Java's 'byte' type is signed and its values are the integers between -128 and 127.
+    Color values v between 128 and 255 are encoded as v - 256.
+    So, to set the R value (given as an integer between 0 and 255) of the pixel at row r and column c:
+    
+        image[(r * nbColumns + c) * 3] = (byte)R;
+    
+    To get the B value (as an integer between 0 and 255) of the pixel at row r and column c:
+
+        int B = image[(r * nbColumns + c) * 3 + 2] & 0xff;
+    
+    */
     byte[] image;
     /** X coordinate of the drone's center of gravity in world coordinates. */
     float x;
