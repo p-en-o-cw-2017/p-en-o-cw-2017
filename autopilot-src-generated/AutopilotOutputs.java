@@ -6,4 +6,7 @@ public interface AutopilotOutputs {
     float getRightWingInclination();
     float getHorStabInclination();
     float getVerStabInclination();
+    float getFrontBrakeForce();
+    float getLeftBrakeForce();
+    float getRightBrakeForce();
 }

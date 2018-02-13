@@ -21,9 +21,17 @@ class Util {
 enum FieldType {
 	FLOAT("float"),
 	INT("int"),
+	STRING("String") {
+		public String getReaderCall() { return "stream.readUTF()"; }
+		public String getWriterCall() { return "stream.writeUTF("; }
+	},
 	BYTE_ARRAY("byte[]") {
 		public String getReaderCall() { return "readByteArray(stream)"; }
 		public String getWriterCall() { return "writeByteArray(stream, "; }
+	},
+	FLOAT_ARRAY("float[]") {
+		public String getReaderCall() { return "readFloatArray(stream)"; }
+		public String getWriterCall() { return "writeFloatArray(stream, "; }
 	};
 
 	public final String name;
@@ -134,17 +142,25 @@ class Parser extends StreamTokenizer {
 	FieldType parseFieldType() throws IOException {
 		if (ttype == TT_WORD && sval.equals("float")) {
 			nextToken();
+			if (ttype == '[') {
+				expectChar('[');
+				expectChar(']');
+				return FieldType.FLOAT_ARRAY;
+			}
 			return FieldType.FLOAT;
 		} else if (ttype == TT_WORD && sval.equals("int")) {
 			nextToken();
 			return FieldType.INT;
+		} else if (ttype == TT_WORD && sval.equals("String")) {
+			nextToken();
+			return FieldType.STRING;
 		} else if (ttype == TT_WORD && sval.equals("byte")) {
 			nextToken();
 			expectChar('[');
 			expectChar(']');
 			return FieldType.BYTE_ARRAY;
 		} else {
-			error("Field type ('float', 'int', or 'byte[]') expected");
+			error("Field type ('float', 'int', 'String', 'byte[]' or 'float[]') expected");
 			throw new AssertionError();
 		}
 	}
@@ -238,6 +254,13 @@ public class CodeGenerator {
 					"        stream.readFully(array);%n"+
 					"        return array;%n"+
 					"    }%n");
+			writer.format(
+					"    private static float[] readFloatArray(java.io.DataInputStream stream) throws java.io.IOException {%n"+
+					"        int length = stream.readInt();%n"+
+					"        float[] array = new float[length];%n"+
+					"        for (int i = 0; i < length; i++) { array[i] = stream.readFloat(); }%n"+
+					"        return array;%n"+
+					"    }%n");
 			writer.format("    public static %s read(java.io.DataInputStream stream) throws java.io.IOException {%n", datatype.name);
 			for (Field field : datatype.fields) {
 				writer.format("        final %s %s = %s;%n", field.type.name, field.name, field.type.getReaderCall());
@@ -262,6 +285,11 @@ public class CodeGenerator {
 					"    private static void writeByteArray(java.io.DataOutputStream stream, byte[] array) throws java.io.IOException {%n"+
 				    "        stream.writeInt(array.length);%n"+
 					"        stream.write(array);%n"+
+				    "    }%n");
+			writer.format(
+					"    private static void writeFloatArray(java.io.DataOutputStream stream, float[] array) throws java.io.IOException {%n"+
+				    "        stream.writeInt(array.length);%n"+
+					"        for (float f : array) { stream.writeFloat(f); }%n"+
 				    "    }%n");
 			writer.format("    public static void write(java.io.DataOutputStream stream, %s value) throws java.io.IOException {%n", datatype.name);
 			for (Field field : datatype.fields) {

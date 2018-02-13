@@ -5,10 +5,24 @@ public class AutopilotConfigWriter {
         stream.writeInt(array.length);
         stream.write(array);
     }
+    private static void writeFloatArray(java.io.DataOutputStream stream, float[] array) throws java.io.IOException {
+        stream.writeInt(array.length);
+        for (float f : array) { stream.writeFloat(f); }
+    }
     public static void write(java.io.DataOutputStream stream, AutopilotConfig value) throws java.io.IOException {
+        stream.writeUTF(value.getDroneID());
         stream.writeFloat(value.getGravity());
         stream.writeFloat(value.getWingX());
         stream.writeFloat(value.getTailSize());
+        stream.writeFloat(value.getWheelY());
+        stream.writeFloat(value.getFrontWheelZ());
+        stream.writeFloat(value.getRearWheelZ());
+        stream.writeFloat(value.getRearWheelX());
+        stream.writeFloat(value.getTyreSlope());
+        stream.writeFloat(value.getDampSlope());
+        stream.writeFloat(value.getTyreRadius());
+        stream.writeFloat(value.getRMax());
+        stream.writeFloat(value.getFcMax());
         stream.writeFloat(value.getEngineMass());
         stream.writeFloat(value.getWingMass());
         stream.writeFloat(value.getTailMass());
